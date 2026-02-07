@@ -1,4 +1,4 @@
-disp("PCBA Functions");
+disp("KiCad-Companion");
 disp("Created by Shawn Wolf");
 disp("Copyright: Creative Commons Zero");
 disp("Need assistance? Try ''HelpMe()''!");
