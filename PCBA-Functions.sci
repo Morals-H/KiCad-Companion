@@ -107,7 +107,7 @@ function x = rSer(Array)
     s = 0
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Add: %g Ω\n", evstr(Array(i)));
+        mprintf("Input: %g\n", evstr(Array(i)));
     end
 
     x = s
@@ -123,7 +123,7 @@ function x = rPar(Array)
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s + t;
-        mprintf("Add: %g Ω\n", evstr(t));
+        mprintf("Input: %g\n", evstr(t));
     end
 
     x = s^-1;
@@ -145,7 +145,7 @@ function x = lSer(Array)
     s = 0
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Add: %g H\n", evstr(Array(i)));
+        mprintf("Input: %g\n", evstr(Array(i)));
     end
     
     x = s
@@ -162,7 +162,7 @@ function x = lPar(Array)
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s +  t;
-        mprintf("Add: %g H\n", evstr(t));
+        mprintf("Input: %g\n", evstr(t));
     end
 
     x = s^-1;
@@ -202,7 +202,7 @@ function x = cSer(Array)
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s +  t;
-        mprintf("Add: %g F\n", evstr(t));
+        mprintf("Input: %g\n", evstr(t));
     end
 
     x = s^-1;
@@ -219,7 +219,7 @@ function x = cPar(Array)
     s = 0
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Add: %g F\n", evstr(Array(i)));
+        mprintf("Input: %g\n", evstr(Array(i)));
     end
     
     x = s
