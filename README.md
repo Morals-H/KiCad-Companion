@@ -1,5 +1,5 @@
-# PCBA-Calculation-Functions
-KiCAD Companion is a Scilab-based utility for electronics enthusiasts, students, and technicians, designed to simplify circuit analysis and calculations
+# KiCAD-Companion
+KiCAD-Companion is a Scilab-based utility for electronics enthusiasts, students, and technicians, designed to simplify circuit analysis and calculations
 
 Features:
 
