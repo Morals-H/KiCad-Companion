@@ -2,24 +2,12 @@ disp("KiCad-Companion");
 disp("Created by Shawn Wolf");
 disp("Copyright: Creative Commons Zero");
 disp("Need assistance? Try ''HelpMe()''!");
-
+Tolerance = 5;
 
 
 //////////
 //Debug//
 ////////
-
-
-
-function ArrayTest(Array)
-    for i = 1:length(Array)
-        if length(Array) > 1 then
-            disp("Array");
-        else
-            disp("Integer / Scalar");
-        end
-    end
-endfunction
 
 
 
@@ -37,6 +25,8 @@ function HelpMe()
     mprintf("\tCapacitanceHelp()\n");
     mprintf("\tReactanceHelp()\n");
     mprintf("\tImpedanceHelp()\n");
+    mprintf("\tOhmsLawHelp()\n");
+    mprintf("\tToleranceHelp()\n")
     mprintf("\tConvertHelp()\n");
 endfunction
 
@@ -51,6 +41,10 @@ function AllHelp()
     ReactanceHelp();
     mprintf("\nImpedance Help:\n");
     ImpedanceHelp();
+    mprintf("\nOhms Law Help:\n");
+    OhmsLawHelp();
+    mprintf("\nTolerance Help:\n")
+    ToleranceHelp();
     mprintf("\nConversion Help:\n");
     ConvertHelp();
     mprintf("\n");
@@ -82,6 +76,17 @@ function ImpedanceHelp()
     mprintf("Calculate Polar Form: zPolar(Resistance, Reactance)\n");
 endfunction
 
+function OhmsLawHelp()
+    mprintf("Calculate Ohms Voltage: vOhms(Amperage, Resistance)\n");
+    mprintf("Calculate Ohms Amperage: aOhms(Voltage, Resistance)\n");
+    mprintf("Calculate Ohms Resistance: rOhms(Voltage, Amperage)\n");
+endfunction
+
+function ToleranceHelp()
+    mprintf("Set Calculation Tolerance: setTolerance(Value)\n");
+    mprintf("Get Current Tolerance: getTolerance()\n");
+endfunction
+
 function ConvertHelp()
     mprintf("Convert to Tera: teraConv(Unit)\n");
     mprintf("Convert to Giga: gigaConv(Unit)\n");
@@ -103,32 +108,54 @@ endfunction
 
 //Series Resistance
 
-function x = rSer(Array)
+function x = rSer(Array) //Resistance
+    //Variables
+    global Tolerance
     s = 0
+
+    //Math
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Input: %g\n", evstr(Array(i)));
+        mprintf("Value: %g\n", Array(i));
     end
 
+    //Final Value
     x = s
-    mprintf("Resistance: %g Ω\n", evstr(x));
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Resistance Ideal: %g Ω\n", x);
+    mprintf("   Resistance Range: %g - %g Ω\n", xL, xH);
 endfunction
 
 
 
 //Parallel Resistance
 
-function x = rPar(Array)
+function x = rPar(Array) //Resistance
+    //Variables
+    global Tolerance
     s = 0
+
+    //Math
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s + t;
-        mprintf("Input: %g\n", evstr(t));
+        mprintf("Value: %g\n", t);
     end
 
+    //Final Value
     x = s^-1;
-    mprintf("Calculate: %g ^-1\n", evstr(s));
-    mprintf("Resistance: %g Ω\n", evstr(x));
+    mprintf("Calculate: %g ^-1\n", s);
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Resistance Ideal: %g Ω\n", x);
+    mprintf("   Resistance Range: %g - %g Ω\n", xL, xH);
 endfunction
 
 
@@ -141,50 +168,56 @@ endfunction
 
 //Series Inductance
 
-function x = lSer(Array)
+function x = lSer(Array) //Inductance
+    //Variables
+    global Tolerance
     s = 0
+
+    //Math
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Input: %g\n", evstr(Array(i)));
+        mprintf("Value: %g\n", Array(i));
     end
     
+    //Final Value
     x = s
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
     dispInd(x)
-    mprintf("Inductance: %g H\n", evstr(x));
+    mprintf("   Inductance Ideal: %g H\n", x);
+    mprintf("   Inductance Range: %g - %g H\n", xL, xH);
 endfunction
 
 
 
 //Parallel Inductance
 
-function x = lPar(Array)
+function x = lPar(Array) //Inductance
+    //Variables
+    global Tolerance
     s = 0
+
+    //Math
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s +  t;
-        mprintf("Input: %g\n", evstr(t));
+        mprintf("Value: %g\n", t);
     end
 
+    //Final Value
     x = s^-1;
-    mprintf("Calculate: %g ^-1\n", evstr(s));
+     mprintf("Calculate: %g ^-1\n", s);
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
     dispInd(x)
-    mprintf("Inductance: %g H\n", evstr(x));
-endfunction
-
-
-
-//Readable Inductance
-
-function x = dispInd(a)
-    if a >= 1 then
-        mprintf("Readable: %g H\n", evstr(a));
-    elseif a >= 1e-3 then
-        mprintf("Readable: %g mH\n", evstr(a*1e3));
-    elseif a >= 1e-6 then
-        mprintf("Readable: %g µH\n", evstr(a*1e6));
-    else
-        mprintf("Readable: %g nH\n", evstr(a*1e9));
-    end
+    mprintf("   Inductance Ideal: %g H\n", x);
+    mprintf("   Inductance Range: %g - %g H\n", xL, xH);
 endfunction
 
 
@@ -197,50 +230,56 @@ endfunction
 
 //Series Capacitance
 
-function x = cSer(Array)
+function x = cSer(Array) //Capacitance
+    //Variables
+    global Tolerance
     s = 0
+
+    //Math
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s +  t;
-        mprintf("Input: %g\n", evstr(t));
+        mprintf("Value: %g\n", t);
     end
 
+    //Final Value
     x = s^-1;
-    mprintf("Calculate: %g ^-1\n", evstr(s));
+    mprintf("Calculate: %g ^-1\n", s);
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
     dispCap(x)
-    mprintf("Capacitance: %g F\n", evstr(x));
+    mprintf("   Capacitance Ideal: %g F\n", x);
+    mprintf("   Capacitance Range: %g - %g F\n", xL, xH);
 endfunction
 
 
 
 //Parallel Capacitance
 
-function x = cPar(Array)
+function x = cPar(Array) //Capacitance
+    //Variables
+    global Tolerance
     s = 0
+
+    //Math
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Input: %g\n", evstr(Array(i)));
+        mprintf("Value: %g\n", Array(i));
     end
     
+    //Final Value
     x = s
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
     dispCap(x)
-    mprintf("Capacitance: %g F\n", evstr(x));
-endfunction
-
-
-
-//Readable Capacitance
-
-function x = dispCap(a)
-    if a >= 1e-3 then
-        mprintf("Readable: %g mF\n", evstr(a*1e3));
-    elseif a >= 1e-6 then
-        mprintf("Readable: %g µF\n", evstr(a*1e6));
-    elseif a >= 1e-9 then
-        mprintf("Readable: %g nF\n", evstr(a*1e9));
-    else
-        mprintf("Readable: %g pF\n", evstr(a*1e12));
-    end
+    mprintf("   Capacitance Ideal: %g F\n", x);
+    mprintf("   Capacitance Range: %g - %g F\n", xL, xH);
 endfunction
 
 
@@ -252,26 +291,26 @@ endfunction
 
 //Inductive Reactance
 
-function x = lReact(a, b)
-    x = 2 * %pi * b * a
-    mprintf("Inductive Reactance: %g Ω\n", evstr(x));
+function x = lReact(a, b) //Inductance, Frequency
+    x = 2 * %pi * b * a;
+    mprintf("   Inductive Reactance: %g Ω\n", x);
 endfunction
 
 
 
 //Capacitive Reactance
 
-function x = cReact(a, b)
+function x = cReact(a, b) //Capacitance, Frequency
     x = 1 / (2 * %pi * b * a);
-    mprintf("Capacitive Reactance: %g Ω\n", evstr(x));
+    mprintf("   Capacitive Reactance: %g Ω\n", x);
 endfunction
 
 
 //Total Reactance
 
-function x = tReact(a, b)
+function x = tReact(a, b) //Inductive Reactance, Capacitive Reactance
     x = a - b;
-    mprintf("Total Reactance: %g Ω\n", evstr(x));
+    mprintf("   Total Reactance: %g Ω\n", x);
 endfunction
 
 
@@ -281,24 +320,102 @@ endfunction
 ////////////
 
 
-//Impedance rectangular form
 
-function x = zRect(a, b)
+// Impedance rectangular form
+function x = zRect(a, b) //Resistance, Reactance
     x = a + b*%i;
-    mprintf("Rectangular form: %g + %gi Ω\n", evstr(real(x)), evstr(imag(x)));
+    mprintf("   Rectangular form: %g + %gi Ω\n", real(x), imag(x));
 endfunction
 
 
 
-//Impedance polar form
-
-function zPolar(a, b)
-    x = sqrt(a^2 + b^2);
-    theta = atan(b / a) * 180 / %pi;
-    mprintf("Polar form: %g ∠ %g° Ω\n", evstr(x), evstr(theta));
+// Impedance polar form
+function zPolar(a, b) //Resistance, Reactance
+    mag = sqrt(a^2 + b^2);
+    theta = atan(b, a) * 180 / %pi;
+    mprintf("   Polar form: %g ∠ %g° Ω\n", mag, theta);
 endfunction
 
 
+
+/////////////
+//Ohms Law//
+///////////
+
+
+// Ohms Voltage
+
+function x = vOhms(a, b) // amperage, resistance
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = a * b;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Voltage Ideal: %g V\n", x);
+    mprintf("   Voltage Range: %g - %g V\n", xL, xH);
+endfunction
+
+// Ohms Amperage
+
+function x = aOhms(a, b) // voltage, resistance
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = a / b;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Amperage Ideal: %g A\n", x);
+    mprintf("   Amperage Range: %g - %g A\n", xL, xH);
+endfunction
+
+// Ohms Resistance
+
+function x = rOhms(a, b) // voltage, amperage
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = a / b;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Resistance Ideal: %g Ω\n", x);
+    mprintf("   Resistance Range: %g - %g Ω\n", xL, xH);
+endfunction
+
+
+
+//////////////
+//Tolerance//
+////////////
+
+
+
+function setTolerance(a) //Unit
+    //Final Value
+    global Tolerance
+
+    Tolerance = a
+    mprintf("Tolerance: %g%% \n", a);
+endfunction
+
+function getTolerance()
+    //Final Value
+    global Tolerance
+
+    mprintf("Tolerance: %g%% \n", Tolerance);
+endfunction
 
 ////////////////
 //Conversions//
@@ -306,42 +423,95 @@ endfunction
 
 
 
-function x = teraConv(a)
+function x = teraConv(a) //Unit
     x = a * 1e-12;
-    mprintf("%g T\n", evstr(x));
+    mprintf("   %g T\n", x);
 endfunction
 
-function x = gigaConv(a)
+function x = gigaConv(a) //Unit
     x = a * 1e-9;
-    mprintf("%g G\n", evstr(x));
+    mprintf("   %g G\n", x);
 endfunction
 
-function x = megaConv(a)
+function x = megaConv(a) //Unit
     x = a * 1e-6;
-    mprintf("%g M\n", evstr(x));
+    mprintf("   %g M\n", x);
 endfunction
 
-function x = kiloConv(a)
+function x = kiloConv(a) //Unit
     x = a * 1e-3;
-    mprintf("%g k\n", evstr(x));
+    mprintf("   %g k\n", x);
 endfunction
 
-function x = milliConv(a)
+function x = milliConv(a) //Unit
     x = a * 1e3;
-    mprintf("%g m\n", evstr(x));
+    mprintf("   %g m\n", x);
 endfunction
 
-function x = microConv(a)
+function x = microConv(a) //Unit
     x = a * 1e6;
-    mprintf("%g μ\n", evstr(x));
+    mprintf("   %g μ\n", x);
 endfunction
 
-function x = nanoConv(a)
+function x = nanoConv(a) //Unit
     x = a * 1e9;
-    mprintf("%g n\n", evstr(x));
+    mprintf("   %g n\n", x);
 endfunction
 
-function x = picoConv(a)
+function x = picoConv(a) //Unit
     x = a * 1e12;
-    mprintf("%g p\n", evstr(x));
+    mprintf("   %g p\n", x);
+endfunction
+
+
+///////////
+//Common//
+/////////
+
+
+//Get Tolerance Range
+
+function [xL, xH] = applyTolerance(value)
+    //Variables
+    global Tolerance
+
+    //Math
+    xH = value * (1 + Tolerance / 100);
+    xL = value * (1 - Tolerance / 100);
+end
+
+
+
+//Readable Inductance
+
+function dispInd(a)
+    if a >= 1 then
+        mprintf("   Readable: %g H\n", a);
+    elseif a >= 1e-3 then
+        mprintf("   Readable: %g mH\n", a*1e3);
+    elseif a >= 1e-6 then
+        mprintf("   Readable: %g µH\n", a*1e6);
+    elseif a >= 1e-9 then
+        mprintf("   Readable: %g nH\n", a*1e9);
+    else
+        mprintf("   Readable: %g pH\n", a*1e12);
+    end
+endfunction
+
+
+
+//Readable Capacitance
+
+function dispCap(a)
+    if a >= 1 then
+        mprintf("   Readable: %g F\n", a);
+    elseif a >= 1e-3 then
+        mprintf("   Readable: %g mF\n", a*1e3);
+    elseif a >= 1e-6 then
+        mprintf("   Readable: %g µF\n", a*1e6);
+    elseif a >= 1e-9 then
+        mprintf("   Readable: %g nF\n", a*1e9);
+    else
+        mprintf("   Readable: %g pF\n", a*1e12);
+    end
 endfunction
