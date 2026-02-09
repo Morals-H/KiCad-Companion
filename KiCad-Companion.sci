@@ -21,6 +21,7 @@ function HelpMe()
     mprintf("\tReactanceHelp()\n");
     mprintf("\tImpedanceHelp()\n");
     mprintf("\tOhmsLawHelp()\n");
+    mprintf("\tWattsLawHelp()\n")
     mprintf("\tToleranceHelp()\n")
     mprintf("\tConvertHelp()\n");
 endfunction
@@ -38,6 +39,8 @@ function AllHelp()
     ImpedanceHelp();
     mprintf("\n   Ohms Law Help:\n");
     OhmsLawHelp();
+    mprintf("\n   Watts Law Help:\n");
+    WattsLawHelp();
     mprintf("\n   Tolerance Help:\n")
     ToleranceHelp();
     mprintf("\n   Conversion Help:\n");
@@ -72,9 +75,15 @@ function ImpedanceHelp()
 endfunction
 
 function OhmsLawHelp()
-    mprintf("\tCalculate Ohms Voltage: vOhms(Amperage, Resistance)\n");
-    mprintf("\tCalculate Ohms Amperage: aOhms(Voltage, Resistance)\n");
-    mprintf("\tCalculate Ohms Resistance: rOhms(Voltage, Amperage)\n");
+    mprintf("\tCalculate Ohms Voltage: vOhm(Amperage, Resistance)\n");
+    mprintf("\tCalculate Ohms Amperage: aOhm(Voltage, Resistance)\n");
+    mprintf("\tCalculate Ohms Resistance: rOhm(Voltage, Amperage)\n");
+endfunction
+
+function WattsLawHelp()
+    mprintf("\tCalculate Watts Wattage: wWatt(Voltage, Amperage)\n");
+    mprintf("\tCalculate Watts Amperage: aWatt(Wattage, Voltage)\n");
+    mprintf("\tCalculate Watts Voltage: vWatt(Wattage, Amperage)\n");
 endfunction
 
 function ToleranceHelp()
@@ -110,7 +119,7 @@ function x = rSer(Array) //Resistance
 
     //Math
     for i = 1:length(Array)
-        s = s + Array(i)
+        s = s + Array(i);
     end
 
     //Final Value
@@ -135,7 +144,7 @@ function x = rPar(Array) //Resistance
 
     //Math
     for i = 1:length(Array)
-        t = (1 / Array(i))
+        t = (1 / Array(i));
         s = s + t;
     end
 
@@ -167,7 +176,7 @@ function x = lSer(Array) //Inductance
 
     //Math
     for i = 1:length(Array)
-        s = s + Array(i)
+        s = s + Array(i);
     end
     
     //Final Value
@@ -193,7 +202,7 @@ function x = lPar(Array) //Inductance
 
     //Math
     for i = 1:length(Array)
-        t = (1 / Array(i))
+        t = (1 / Array(i));
         s = s +  t;
     end
 
@@ -226,7 +235,7 @@ function x = cSer(Array) //Capacitance
 
     //Math
     for i = 1:length(Array)
-        t = (1 / Array(i))
+        t = (1 / Array(i));
         s = s +  t;
     end
 
@@ -253,7 +262,7 @@ function x = cPar(Array) //Capacitance
 
     //Math
     for i = 1:length(Array)
-        s = s + Array(i)
+        s = s + Array(i);
     end
     
     //Final Value
@@ -308,6 +317,7 @@ endfunction
 
 
 // Impedance rectangular form
+
 function x = zRect(a, b) //Resistance, Reactance
     x = a + b*%i;
     mprintf("   Rectangular form: %g + %gi Ω\n", real(x), imag(x));
@@ -316,9 +326,10 @@ endfunction
 
 
 // Impedance polar form
+
 function zPolar(a, b) //Resistance, Reactance
     mag = sqrt(a^2 + b^2);
-    theta = atan(b, a) * 180 / %pi;
+    theta = atand(b, a);
     mprintf("   Polar form: %g ∠ %g° Ω\n", mag, theta);
 endfunction
 
@@ -331,7 +342,7 @@ endfunction
 
 // Ohms Voltage
 
-function x = vOhms(a, b) // amperage, resistance
+function x = vOhm(a, b) // Amperage, Resistance
     //Variables
     global Tolerance
 
@@ -348,7 +359,7 @@ endfunction
 
 // Ohms Amperage
 
-function x = aOhms(a, b) // voltage, resistance
+function x = aOhm(a, b) // Voltage, Resistance
     //Variables
     global Tolerance
 
@@ -365,7 +376,7 @@ endfunction
 
 // Ohms Resistance
 
-function x = rOhms(a, b) // voltage, amperage
+function x = rOhm(a, b) // Voltage, Amperage
     //Variables
     global Tolerance
 
@@ -380,6 +391,68 @@ function x = rOhms(a, b) // voltage, amperage
     mprintf("   Resistance Range: %g - %g Ω\n", xL, xH);
 endfunction
 
+
+
+///////////////
+//Watt's Law//
+/////////////
+
+
+
+//Figure Wattage with voltage and amperage
+
+function x = wWatt(a, b) // Voltage, Amperage
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = a * b;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Wattage Ideal: %g W\n", x);
+    mprintf("   Wattage Range: %g - %g W\n", xL, xH);
+endfunction
+
+
+
+//Figure voltage from wattage and amperage
+
+function x = vWatt(a, b) // Wattage, Amperage
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = a / b;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Voltage Ideal: %g V\n", x);
+    mprintf("   Voltage Range: %g - %g V\n", xL, xH);
+endfunction
+
+
+
+//Figure amperage from wattage and voltage
+
+function x = aWatt(a, b) // Wattage, Voltage
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = a / b;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Amperage Ideal: %g A\n", x);
+    mprintf("   Amperage Range: %g - %g A\n", xL, xH);
+endfunction
 
 
 //////////////
