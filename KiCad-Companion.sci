@@ -106,7 +106,7 @@ endfunction
 function x = rSer(Array) //Resistance
     //Variables
     global Tolerance
-    s = 0
+    s = 0;
 
     //Math
     for i = 1:length(Array)
@@ -114,7 +114,7 @@ function x = rSer(Array) //Resistance
     end
 
     //Final Value
-    x = s
+    x = s;
 
     //Figure Tolerance
     [xL, xH] = applyTolerance(x);
@@ -131,7 +131,7 @@ endfunction
 function x = rPar(Array) //Resistance
     //Variables
     global Tolerance
-    s = 0
+    s = 0;
 
     //Math
     for i = 1:length(Array)
@@ -163,7 +163,7 @@ endfunction
 function x = lSer(Array) //Inductance
     //Variables
     global Tolerance
-    s = 0
+    s = 0;
 
     //Math
     for i = 1:length(Array)
@@ -171,7 +171,7 @@ function x = lSer(Array) //Inductance
     end
     
     //Final Value
-    x = s
+    x = s;
 
     //Figure Tolerance
     [xL, xH] = applyTolerance(x);
@@ -189,7 +189,7 @@ endfunction
 function x = lPar(Array) //Inductance
     //Variables
     global Tolerance
-    s = 0
+    s = 0;
 
     //Math
     for i = 1:length(Array)
@@ -222,7 +222,7 @@ endfunction
 function x = cSer(Array) //Capacitance
     //Variables
     global Tolerance
-    s = 0
+    s = 0;
 
     //Math
     for i = 1:length(Array)
@@ -249,7 +249,7 @@ endfunction
 function x = cPar(Array) //Capacitance
     //Variables
     global Tolerance
-    s = 0
+    s = 0;
 
     //Math
     for i = 1:length(Array)
@@ -257,7 +257,7 @@ function x = cPar(Array) //Capacitance
     end
     
     //Final Value
-    x = s
+    x = s;
 
     //Figure Tolerance
     [xL, xH] = applyTolerance(x);
@@ -464,7 +464,7 @@ function [xL, xH] = applyTolerance(value)
     //Math
     xH = value * (1 + Tolerance / 100);
     xL = value * (1 - Tolerance / 100);
-end
+endfunction
 
 
 
