@@ -18,6 +18,8 @@ function HelpMe()
     mprintf("\tConvertHelp()\n");
 endfunction
 
+
+
 function AllHelp()
     mprintf("\n   Resistance Help:\n");
     ResistanceHelp();
@@ -40,20 +42,28 @@ function AllHelp()
     mprintf("\n");
 endfunction
 
+
+
 function ResistanceHelp()
     mprintf("\tCalculate Series Resistance: rSer([Resistance Array])\n");
     mprintf("\tCalculate Parallel Resistance: rPar([Resistance Array])\n");
 endfunction
+
+
 
 function InductanceHelp()
     mprintf("\tCalculate Series Inductance: lSer([Inductance Array])\n");
     mprintf("\tCalculate Parallel Inductance: lPar([Inductance Array])\n");
 endfunction
 
+
+
 function CapacitanceHelp()
     mprintf("\tCalculate Series Capacitance: cSer([Capacitance Array])\n");
     mprintf("\tCalculate Parallel Capacitance: cPar([Capacitance Array])\n");
 endfunction
+
+
 
 function ReactanceHelp()
     mprintf("\tCalculate Inductive Reactance: lReact(Inductance, Frequency)\n");
@@ -61,10 +71,14 @@ function ReactanceHelp()
     mprintf("\tCalculate Total Reactance: tReact(Inductive Reactance, Capacitive Reactance)\n");
 endfunction
 
+
+
 function ImpedanceHelp()
     mprintf("\tCalculate Rectangular Form: zRect(Resistance, Reactance)\n");
     mprintf("\tCalculate Polar Form: zPolar(Resistance, Reactance)\n");
 endfunction
+
+
 
 function OhmsLawHelp()
     mprintf("\tCalculate Ohms Voltage: vOhm(Amperage, Resistance)\n");
@@ -72,16 +86,22 @@ function OhmsLawHelp()
     mprintf("\tCalculate Ohms Resistance: rOhm(Voltage, Amperage)\n");
 endfunction
 
+
+
 function WattsLawHelp()
     mprintf("\tCalculate Watts Wattage: wWatt(Voltage, Amperage)\n");
     mprintf("\tCalculate Watts Amperage: aWatt(Wattage, Voltage)\n");
     mprintf("\tCalculate Watts Voltage: vWatt(Wattage, Amperage)\n");
 endfunction
 
+
+
 function ToleranceHelp()
     mprintf("\tSet Calculation Tolerance: setTolerance(Value)\n");
     mprintf("\tGet Current Tolerance: getTolerance()\n");
 endfunction
+
+
 
 function ConvertHelp()
     mprintf("\tConvert to Tera: teraConv(Unit)\n");
