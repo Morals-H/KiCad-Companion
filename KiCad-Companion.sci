@@ -1,13 +1,8 @@
-disp("KiCad-Companion");
-disp("Created by Shawn Wolf");
-disp("Copyright: Creative Commons Zero");
-disp("Need assistance? Try ''HelpMe()''!");
+mprintf("   KiCad-Companion\n");
+mprintf("   Created by: Shawn Wolf\n");
+mprintf("   Copyright: Creative Commons Zero\n");
+mprintf("   Need assistance? Try ''HelpMe()''!\n");
 Tolerance = 5;
-
-
-//////////
-//Debug//
-////////
 
 
 
@@ -18,7 +13,7 @@ Tolerance = 5;
 
 
 function HelpMe()
-    disp("Enter One of the following:");
+    mprintf("   Enter One of the following:\n");
     mprintf("\tAllHelp()\n");
     mprintf("\tInductanceHelp()\n");
     mprintf("\tResistanceHelp()\n");
@@ -31,71 +26,71 @@ function HelpMe()
 endfunction
 
 function AllHelp()
-    mprintf("\nResistance Help:\n");
+    mprintf("\n   Resistance Help:\n");
     ResistanceHelp();
-    mprintf("\nInductance Help:\n");
+    mprintf("\n   Inductance Help:\n");
     InductanceHelp();
-    mprintf("\nCapacitance Help:\n");
+    mprintf("\n   Capacitance Help:\n");
     CapacitanceHelp();
-    mprintf("\nReactance Help:\n");
+    mprintf("\n   Reactance Help:\n");
     ReactanceHelp();
-    mprintf("\nImpedance Help:\n");
+    mprintf("\n   Impedance Help:\n");
     ImpedanceHelp();
-    mprintf("\nOhms Law Help:\n");
+    mprintf("\n   Ohms Law Help:\n");
     OhmsLawHelp();
-    mprintf("\nTolerance Help:\n")
+    mprintf("\n   Tolerance Help:\n")
     ToleranceHelp();
-    mprintf("\nConversion Help:\n");
+    mprintf("\n   Conversion Help:\n");
     ConvertHelp();
     mprintf("\n");
 endfunction
 
 function ResistanceHelp()
-    mprintf("Calculate Series Resistance: rSer([Resistance Array])\n");
-    mprintf("Calculate Parallel Resistance: rPar([Resistance Array])\n");
+    mprintf("\tCalculate Series Resistance: rSer([Resistance Array])\n");
+    mprintf("\tCalculate Parallel Resistance: rPar([Resistance Array])\n");
 endfunction
 
 function InductanceHelp()
-    mprintf("Calculate Series Inductance: lSer([Inductance Array])\n");
-    mprintf("Calculate Parallel Inductance: lPar([Inductance Array])\n");
+    mprintf("\tCalculate Series Inductance: lSer([Inductance Array])\n");
+    mprintf("\tCalculate Parallel Inductance: lPar([Inductance Array])\n");
 endfunction
 
 function CapacitanceHelp()
-    mprintf("Calculate Series Capacitance: cSer([Capacitance Array])\n");
-    mprintf("Calculate Parallel Capacitance: cPar([Capacitance Array])\n");
+    mprintf("\tCalculate Series Capacitance: cSer([Capacitance Array])\n");
+    mprintf("\tCalculate Parallel Capacitance: cPar([Capacitance Array])\n");
 endfunction
 
 function ReactanceHelp()
-    mprintf("Calculate Inductive Reactance: lReact(Inductance, Frequency)\n");
-    mprintf("Calculate Capacitive Reactance: cReact(Capacitance, Frequency)\n");
-    mprintf("Calculate Total Reactance: tReact(Inductive Reactance, Capacitive Reactance)\n");
+    mprintf("\tCalculate Inductive Reactance: lReact(Inductance, Frequency)\n");
+    mprintf("\tCalculate Capacitive Reactance: cReact(Capacitance, Frequency)\n");
+    mprintf("\tCalculate Total Reactance: tReact(Inductive Reactance, Capacitive Reactance)\n");
 endfunction
 
 function ImpedanceHelp()
-    mprintf("Calculate Rectangular Form: zRect(Resistance, Reactance)\n");
-    mprintf("Calculate Polar Form: zPolar(Resistance, Reactance)\n");
+    mprintf("\tCalculate Rectangular Form: zRect(Resistance, Reactance)\n");
+    mprintf("\tCalculate Polar Form: zPolar(Resistance, Reactance)\n");
 endfunction
 
 function OhmsLawHelp()
-    mprintf("Calculate Ohms Voltage: vOhms(Amperage, Resistance)\n");
-    mprintf("Calculate Ohms Amperage: aOhms(Voltage, Resistance)\n");
-    mprintf("Calculate Ohms Resistance: rOhms(Voltage, Amperage)\n");
+    mprintf("\tCalculate Ohms Voltage: vOhms(Amperage, Resistance)\n");
+    mprintf("\tCalculate Ohms Amperage: aOhms(Voltage, Resistance)\n");
+    mprintf("\tCalculate Ohms Resistance: rOhms(Voltage, Amperage)\n");
 endfunction
 
 function ToleranceHelp()
-    mprintf("Set Calculation Tolerance: setTolerance(Value)\n");
-    mprintf("Get Current Tolerance: getTolerance()\n");
+    mprintf("\tSet Calculation Tolerance: setTolerance(Value)\n");
+    mprintf("\tGet Current Tolerance: getTolerance()\n");
 endfunction
 
 function ConvertHelp()
-    mprintf("Convert to Tera: teraConv(Unit)\n");
-    mprintf("Convert to Giga: gigaConv(Unit)\n");
-    mprintf("Convert to Mega: megaConv(Unit)\n");
-    mprintf("Convert to Kilo: kiloConv(Unit)\n");
-    mprintf("Convert to Milli: milliConv(Unit)\n");
-    mprintf("Convert to Micro: microConv(Unit)\n");
-    mprintf("Convert to Nano: nanoConv(Unit)\n");
-    mprintf("Convert to Pico: picoConv(Unit)\n");
+    mprintf("\tConvert to Tera: teraConv(Unit)\n");
+    mprintf("\tConvert to Giga: gigaConv(Unit)\n");
+    mprintf("\tConvert to Mega: megaConv(Unit)\n");
+    mprintf("\tConvert to Kilo: kiloConv(Unit)\n");
+    mprintf("\tConvert to Milli: milliConv(Unit)\n");
+    mprintf("\tConvert to Micro: microConv(Unit)\n");
+    mprintf("\tConvert to Nano: nanoConv(Unit)\n");
+    mprintf("\tConvert to Pico: picoConv(Unit)\n");
 endfunction
 
 
@@ -116,7 +111,6 @@ function x = rSer(Array) //Resistance
     //Math
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Value: %g\n", Array(i));
     end
 
     //Final Value
@@ -143,12 +137,10 @@ function x = rPar(Array) //Resistance
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s + t;
-        mprintf("Value: %g\n", t);
     end
 
     //Final Value
     x = s^-1;
-    mprintf("Calculate: %g ^-1\n", s);
 
     //Figure Tolerance
     [xL, xH] = applyTolerance(x);
@@ -176,7 +168,6 @@ function x = lSer(Array) //Inductance
     //Math
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Value: %g\n", Array(i));
     end
     
     //Final Value
@@ -204,12 +195,10 @@ function x = lPar(Array) //Inductance
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s +  t;
-        mprintf("Value: %g\n", t);
     end
 
     //Final Value
     x = s^-1;
-     mprintf("Calculate: %g ^-1\n", s);
 
     //Figure Tolerance
     [xL, xH] = applyTolerance(x);
@@ -239,12 +228,10 @@ function x = cSer(Array) //Capacitance
     for i = 1:length(Array)
         t = (1 / Array(i))
         s = s +  t;
-        mprintf("Value: %g\n", t);
     end
 
     //Final Value
     x = s^-1;
-    mprintf("Calculate: %g ^-1\n", s);
 
     //Figure Tolerance
     [xL, xH] = applyTolerance(x);
@@ -267,7 +254,6 @@ function x = cPar(Array) //Capacitance
     //Math
     for i = 1:length(Array)
         s = s + Array(i)
-        mprintf("Value: %g\n", Array(i));
     end
     
     //Final Value
