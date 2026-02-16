@@ -114,6 +114,26 @@ endfunction
 
 
 
+//Discharge Inductance
+
+function x = lDis(a, b) //Inductance, Resistance
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = a / b;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Time Constant Ideal: %g Second(s)\n", x);
+    mprintf("   Time Constant Range: %g - %g Second(s)\n", xL, xH);
+    mprintf("   Discharge Ideal: %g Second(s)\n", (x * 5));
+endfunction
+
+
+
 ////////////////
 //Capacitance//
 //////////////
@@ -173,4 +193,20 @@ endfunction
 
 
 
+//Discharge Capacitor 
 
+function x = cDis(a, b) //Capacitance, Resistance
+    //Variables
+    global Tolerance
+
+    //Final Value
+    x = b * a;
+
+    //Figure Tolerance
+    [xL, xH] = applyTolerance(x);
+
+    //Final Output
+    mprintf("   Time Constant Ideal: %g Second(s)\n", x);
+    mprintf("   Time Constant Range: %g - %g Second(s)\n", xL, xH);
+    mprintf("   Discharge Ideal: %g Second(s)\n", (x * 5));
+endfunction

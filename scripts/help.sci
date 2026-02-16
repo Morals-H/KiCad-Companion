@@ -54,6 +54,7 @@ endfunction
 function InductanceHelp()
     mprintf("\tCalculate Series Inductance: lSer([Inductance Array])\n");
     mprintf("\tCalculate Parallel Inductance: lPar([Inductance Array])\n");
+    mprintf("\tCalculate Inductance Time Constant: lDis(Inductance, Resistance)\n");
 endfunction
 
 
@@ -61,6 +62,7 @@ endfunction
 function CapacitanceHelp()
     mprintf("\tCalculate Series Capacitance: cSer([Capacitance Array])\n");
     mprintf("\tCalculate Parallel Capacitance: cPar([Capacitance Array])\n");
+    mprintf("\tCalculate Capacitive Time Constant: cDis(Capacitance, Resistance)\n");
 endfunction
 
 
